@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Matias Nahuel Sanchez · Architecture Portfolio</title>
+<meta name="description" content="Academic Architecture Portfolio · UNLP · Projects 2022–2026">
+<meta name="author" content="Matias Nahuel Sanchez">
+
+<style>
+:root{
+  --bg:#f5f5f5;
+  --text:#1f1f1f;
+  --accent:#7a7a7a;
+  --card:#ffffff;
+  --line:#dddddd;
+}
+body.dark{
+  --bg:#0f0f0f;
+  --text:#eaeaea;
+  --accent:#9a9a9a;
+  --card:#1a1a1a;
+  --line:#333333;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Helvetica Neue",Arial,sans-serif;}
+body{background:var(--bg);color:var(--text);line-height:1.6}
+
+/* CONTROLES */
+.controls{
+  position:fixed;
+  top:20px;
+  right:20px;
+  display:flex;
+  gap:.5rem;
+  z-index:1000;
+}
+.ctrl-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:none;
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem;
+}
+.hero h1{font-size:3rem;font-weight:300;letter-spacing:4px}
+.hero p{margin-top:1.2rem;font-size:.9rem;color:var(--accent)}
+.hero span{display:block;margin-top:3rem;font-size:.75rem;color:var(--accent)}
+.hero-actions{
+  margin-top:2rem;
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+}
+.hero-actions a{
+  font-size:.7rem;
+  padding:.5rem 1rem;
+  border:1px solid var(--line);
+  border-radius:20px;
+  text-decoration:none;
+  color:var(--accent);
+}
+
+/* SECCIONES */
+section{padding:4rem 2rem;max-width:1100px;margin:auto}
+section h2{font-weight:300;margin-bottom:1.5rem}
+
+/* PERFIL */
+.profile{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+  font-size:.85rem;
+  color:var(--accent);
+}
+.profile span{
+  display:block;
+  font-size:.7rem;
+  letter-spacing:.1em;
+  margin-bottom:.3rem;
+  color:var(--text);
+}
+
+/* TEXTO */
+.description{
+  max-width:700px;
+  font-size:.95rem;
+  color:var(--accent);
+}
+
+/* FILTROS */
+.filters{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:2.5rem;
+}
+.filter-btn{
+  font-size:.7rem;
+  padding:.45rem .9rem;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--accent);
+  cursor:pointer;
+}
+.filter-btn.active{
+  background:var(--text);
+  color:var(--bg);
+}
+
+/* PROYECTOS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2rem;
+}
+.card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+  transition:.3s;
+}
+.card:hover{transform:translateY(-5px)}
+.card-image{position:relative}
+.card-image img{width:100%;height:200px;object-fit:cover}
+
+.overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:.3s;
+}
+.card:hover .overlay{opacity:1}
+.overlay span{color:#fff;font-size:.85rem}
+
+.badge{
+  position:absolute;
+  top:12px;left:12px;
+  background:#000;
+  color:#fff;
+  font-size:.65rem;
+  padding:6px 10px;
+  border-radius:20px;
+}
+
+.card-content{padding:1.2rem}
+.card-content h3{font-size:1.05rem;font-weight:400}
+.actions{margin-top:.8rem}
+.btn{
+  font-size:.7rem;
+  border:1px solid var(--line);
+  padding:.35rem .7rem;
+  border-radius:20px;
+  text-decoration:none;
+  color:var(--accent);
+}
+
+/* HABILIDADES */
+.skills{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.4rem;
+}
+.skill{
+  background:var(--card);
+  padding:1.2rem;
+  border-radius:12px;
+}
+.skill h4{font-weight:400;margin-bottom:.5rem;font-size:.9rem}
+.bar{height:6px;background:var(--line);border-radius:6px}
+.bar span{display:block;height:100%;background:var(--text)}
+
+/* CONTACTO */
+.contact-list{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+.contact-list a{color:var(--text);text-decoration:none}
+
+/* ANIMACIONES */
+.reveal{opacity:0;transform:translateY(30px);transition:.8s}
+.reveal.visible{opacity:1;transform:none}
+
+footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--accent)}
+</style>
+</head>
+
+<body>
+
+<div class="controls">
+  <button class="ctrl-btn" id="themeBtn">🌙</button>
+  <button class="ctrl-btn" id="langBtn">EN</button>
+</div>
+
+<section class="hero reveal">
+  <div>
+    <h1>MATIAS NAHUEL SANCHEZ</h1>
+    <p id="heroSubtitle"></p>
+    <span id="heroSpan"></span>
+    <div class="hero-actions">
+      <a href="pdf/CV_Matias_Sanchez_ES.pdf" target="_blank">CV ES</a>
+      <a href="pdf/CV_Matias_Sanchez_EN.pdf" target="_blank">CV EN</a>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="profile">
+    <div><span>Universidad</span>FAU UNLP</div>
+    <div><span>Carrera</span>Arquitectura Y Urbanismo</div>
+    <div><span>Período</span>2022–2026()</div>
+    <div><span>Intereses</span>Vivienda · Espacio público · Urbanismo</div>
+  </div>
+</section>
+
+<section>
+  <h2 id="skillsTitle" class="reveal"></h2>
+  <div class="skills reveal" id="skillsGrid"></div>
+</section>
+
+<section class="reveal">
+  <p class="description" id="aboutText"></p>
+</section>
+
+<section>
+  <h2 id="projectsTitle" class="reveal"></h2>
+  <div class="filters reveal">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="2022">2022</button>
+    <button class="filter-btn" data-filter="2025">2025</button>
+    <button class="filter-btn" data-filter="process">En proceso</button>
+  </div>
+  <div class="grid" id="projectsGrid"></div>
+</section>
+
+<section>
+  <h2 id="contactTitle" class="reveal"></h2>
+  <div class="contact-list reveal">
+    <a href="https://www.instagram.com/matiaslxrd/" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com/in/matiaslxrd/" target="_blank">LinkedIn</a>
+    <span>ArqMSanchez@gmail.com</span>
+  </div>
+</section>
+
+<footer>© 2026 · Portfolio</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+let lang="es";
+let activeFilter="all";
+
+const i18n={
+es:{hero:"Arquitectura · UNLP",span:"Portfolio académico · 2022–2026 ↓",projects:"Proyectos",skills:"Habilidades",contact:"Contacto",view:"Ver proyecto",process:"Proyecto en proceso",download:"Descargar PDF",about:"Estudiante de Arquitectura en la Universidad Nacional de La Plata. Este portafolio reúne trabajos académicos desarrollados entre 2022 y 2026.",skillNames:["AutoCAD","SketchUp","Adobe Photoshop","V-Ray","Twinmotion","Lumion","Microsoft Word","Microsoft PowerPoint","Microsoft Excel","Revit"]},
+en:{hero:"Architecture · UNLP",span:"Academic portfolio · 2022–2026 ↓",projects:"Projects",skills:"Skills",contact:"Contact",view:"View project",process:"Project in progress",download:"Download PDF",about:"Architecture student at the National University of La Plata. This portfolio gathers academic projects developed between 2022 and 2026.",skillNames:["AutoCAD","SketchUp","Adobe Photoshop","V-Ray","Twinmotion","Lumion","Microsoft Word","Microsoft PowerPoint","Microsoft Excel","Revit"]}
+};
+
+const skills=[90,90,90,75,70,70,50,30,30,10];
+
+const projects=[
+{t:"Vivienda Unifamiliar",year:"2022",status:"done",img:"img/IMGP-P-1-22.jpg",link:"proyectos/vivienda-unifamiliar-2022.html",pdf:"pdf/vivienda-unifamiliar-2022.pdf"},
+{t:"Jardín Maternal UNLP",year:"2022",status:"done",img:"img/IMGP-P-2-22.png",link:"proyectos/jardin-maternal-2022.html",pdf:"pdf/jardin-maternal-2022.pdf"},
+{t:"Vivienda entre medianeras",year:"2022",status:"done",img:"img/IMGP-P-3-22.png",link:"proyectos/vivienda-medianeras-2022.html",pdf:"pdf/vivienda-medianeras-2022.pdf"},
+{t:"Torre Residencial",year:"2025",status:"done",img:"img/IMGP-P-1-25.jpg",link:"proyectos/torre-residencial-2025.html",pdf:"pdf/torre-residencial-2025.pdf"},
+{t:"Facultad de Educación Física",year:"2025",status:"done",img:"img/IMGP-P-2-25.png",link:"proyectos/facultad-educacion-fisica-2025.html",pdf:"pdf/facultad-educacion-fisica-2025.pdf"},
+{t:"Próximamente",year:"2026",status:"process",img:"img/proximamente-light.jpg"}
+];
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")});
+},{threshold:.1});
+
+function render(){
+document.getElementById("heroSubtitle").textContent=i18n[lang].hero;
+document.getElementById("heroSpan").textContent=i18n[lang].span;
+document.getElementById("projectsTitle").textContent=i18n[lang].projects;
+document.getElementById("skillsTitle").textContent=i18n[lang].skills;
+document.getElementById("contactTitle").textContent=i18n[lang].contact;
+document.getElementById("aboutText").textContent=i18n[lang].about;
+
+const grid=document.getElementById("projectsGrid");
+grid.innerHTML="";
+
+projects.filter(p=>{
+if(activeFilter==="all")return true;
+if(activeFilter==="process")return p.status==="process";
+return p.year===activeFilter;
+}).forEach(p=>{
+grid.innerHTML+=`
+<div class="card reveal" ${p.link?`onclick="location.href='${p.link}'"`:""}>
+  <div class="card-image">
+    ${p.status==="process"?`<div class="badge">${i18n[lang].process}</div>`:""}
+    <img src="${p.img}" alt="${p.t}">
+    <div class="overlay">
+      <span>${p.status==="process"?i18n[lang].process:i18n[lang].view}</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <h3>${p.t} · ${p.year}</h3>
+    ${p.pdf?`<div class="actions"><a class="btn" href="${p.pdf}" target="_blank">${i18n[lang].download}</a></div>`:""}
+  </div>
+</div>`;
+});
+
+const sg=document.getElementById("skillsGrid");
+sg.innerHTML="";
+i18n[lang].skillNames.forEach((n,i)=>{
+sg.innerHTML+=`
+<div class="skill reveal">
+  <h4>${n}</h4>
+  <div class="bar"><span style="width:${skills[i]}%"></span></div>
+</div>`;
+});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+}
+
+document.querySelectorAll(".filter-btn").forEach(b=>{
+b.onclick=()=>{
+document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));
+b.classList.add("active");
+activeFilter=b.dataset.filter;
+render();
+};
+});
+
+document.getElementById("langBtn").onclick=()=>{
+lang=lang==="es"?"en":"es";
+document.getElementById("langBtn").textContent=lang.toUpperCase();
+render();
+};
+
+document.getElementById("themeBtn").onclick=()=>{
+document.body.classList.toggle("dark");
+};
+
+render();
+});
+</script>
+
+</body>
+</html>
+
+
+<!-- NOTAS IMPORTANTES
+/index.html
+
+/img/
+  IMGP-P-1-22.jpg
+  IMGP-P-2-22.png
+  IMGP-P-3-22.png
+  IMGP-P-1-25.jpg
+  IMGP-P-2-25.png
+  proximamente-light.jpg
+  proximamente-dark.jpg
+
+/pdf/
+  vivienda-unifamiliar-2022.pdf
+  jardin-maternal-2022.pdf
+  vivienda-medianeras-2022.pdf
+  torre-residencial-2025.pdf
+  facultad-educacion-fisica-2025.pdf
+  CV_Matias_Sanchez_ES.pdf
+  CV_Matias_Sanchez_EN.pdf
+-->
